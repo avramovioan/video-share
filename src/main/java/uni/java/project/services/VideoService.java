@@ -4,15 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uni.java.project.entities.VideoEntity;
-import uni.java.project.repos.BaseRepository;
+import uni.java.project.repos.VideoRepository;
 
 @Service
-public class VideoService {
+public class VideoService{
 
-	private BaseRepository<VideoEntity> repo;
-	
+	private VideoRepository repo;
 	@Autowired
-	public VideoService(BaseRepository<VideoEntity> repo) {
+	public VideoService(VideoRepository repo) {
 		this.repo = repo;
 	}
+	
 }

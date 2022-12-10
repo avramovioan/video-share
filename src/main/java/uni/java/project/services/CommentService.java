@@ -3,16 +3,16 @@ package uni.java.project.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import uni.java.project.entities.CommentEntity;
-import uni.java.project.repos.BaseRepository;
+import uni.java.project.repos.CommentRepository;
 
 @Service
-public class CommentService {
+public class CommentService{
 
-	private BaseRepository<CommentEntity> repo;
+	private CommentRepository repo;
 	
 	@Autowired
-	public CommentService(BaseRepository<CommentEntity> repo) {
+	public CommentService(CommentRepository repo) {
 		this.repo = repo;
 	}
+
 }
