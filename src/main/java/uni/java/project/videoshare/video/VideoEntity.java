@@ -42,11 +42,12 @@ public class VideoEntity implements Serializable {
 	
 	public VideoEntity() {}
 	
-	public VideoEntity(String title, String url, String description)
+	public VideoEntity(String title, String url, String description, UserEntity owner)
 	{
 		this.title = title;
 		this.url = url;
 		this.description = description;
+		this.owner = owner;
 	}
 
 	public int getId() {
