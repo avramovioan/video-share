@@ -1,10 +1,7 @@
-package uni.java.project.services;
+package uni.java.project.videoshare.video;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import uni.java.project.entities.VideoEntity;
-import uni.java.project.repos.VideoRepository;
 
 @Service
 public class VideoService{

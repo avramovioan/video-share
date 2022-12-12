@@ -1,4 +1,4 @@
-package uni.java.project.services;
+package uni.java.project.videoshare.user;
 
 import java.util.Base64;
 import java.util.List;
@@ -8,13 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import uni.java.project.entities.UserEntity;
-import uni.java.project.repos.UserRepository;
-
 @Service
 public class UserService{
 
 	private UserRepository repo;
+	
 	@Autowired
 	public UserService(UserRepository repo) {
 		this.repo = repo;
@@ -29,7 +27,7 @@ public class UserService{
 	}
 	
 	public UserEntity getByEmailAndPassword(String email, String password) {
-		return repo.findByUserByEmailAndPassword(email, password);
+		return repo.findUserByEmailAndPassword(email, password);
 	}
 	
 	public Page<UserEntity> getAll(Pageable pagable){

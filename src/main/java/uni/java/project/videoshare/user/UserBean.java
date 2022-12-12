@@ -1,8 +1,6 @@
-package uni.java.project.beans;
+package uni.java.project.videoshare.user;
 
 import java.io.Serializable;
-
-import uni.java.project.entities.UserEntity;
 
 public class UserBean implements Serializable {
 

@@ -1,4 +1,4 @@
-package uni.java.project.entities;
+package uni.java.project.videoshare.video;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,14 +12,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import uni.java.project.videoshare.comment.CommentEntity;
+import uni.java.project.videoshare.user.UserEntity;
 
 @Entity
-@Table(name = "video")
+@Table(name = "videos")
 public class VideoEntity implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id

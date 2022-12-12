@@ -1,11 +1,10 @@
-package uni.java.project.controllers;
+package uni.java.project.videoshare.video;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import uni.java.project.services.UserService;
-import uni.java.project.services.VideoService;
+import uni.java.project.videoshare.user.UserService;
 
 @RestController
 @RequestMapping("/api/video")

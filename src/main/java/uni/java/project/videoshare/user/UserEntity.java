@@ -1,8 +1,7 @@
-package uni.java.project.entities;
+package uni.java.project.videoshare.user;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
@@ -16,9 +15,11 @@ import jakarta.persistence.OneToMany;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import uni.java.project.videoshare.comment.CommentEntity;
+import uni.java.project.videoshare.video.VideoEntity;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity implements Serializable{
 
 	/**
@@ -39,10 +40,10 @@ public class UserEntity implements Serializable{
 	@Column(length = 260, nullable = false, unique = true)
 	private String email;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
 	private List<VideoEntity> videos;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
 	private List<CommentEntity> comments;
 	
 	public UserEntity(String username, String password, String email) {

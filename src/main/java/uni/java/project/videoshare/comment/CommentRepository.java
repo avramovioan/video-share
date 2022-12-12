@@ -1,9 +1,7 @@
-package uni.java.project.repos;
+package uni.java.project.videoshare.comment;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import uni.java.project.entities.CommentEntity;
 
 
 @Repository

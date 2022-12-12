@@ -1,4 +1,4 @@
-package uni.java.project.entities;
+package uni.java.project.videoshare.comment;
 
 import java.io.Serializable;
 
@@ -10,9 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import uni.java.project.videoshare.user.UserEntity;
+import uni.java.project.videoshare.video.VideoEntity;
 
 @Entity
-@Table(name = "comment")
+@Table(name = "comments")
 public class CommentEntity implements Serializable{
 
 	/**

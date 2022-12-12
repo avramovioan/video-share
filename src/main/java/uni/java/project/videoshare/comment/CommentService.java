@@ -1,9 +1,7 @@
-package uni.java.project.services;
+package uni.java.project.videoshare.comment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import uni.java.project.repos.CommentRepository;
 
 @Service
 public class CommentService{

@@ -1,13 +1,11 @@
-package uni.java.project.repos;
+package uni.java.project.videoshare.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import uni.java.project.entities.UserEntity;
 
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 	
-	public UserEntity findByUserByEmailAndPassword(String email, String password);
+	public UserEntity findUserByEmailAndPassword(String email, String password);
 }

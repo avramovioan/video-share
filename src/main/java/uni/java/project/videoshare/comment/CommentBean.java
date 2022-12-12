@@ -1,8 +1,6 @@
-package uni.java.project.beans;
+package uni.java.project.videoshare.comment;
 
 import java.io.Serializable;
-
-import uni.java.project.entities.CommentEntity;
 
 public class CommentBean implements Serializable {
 

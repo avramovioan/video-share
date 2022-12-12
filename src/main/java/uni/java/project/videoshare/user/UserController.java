@@ -1,4 +1,4 @@
-package uni.java.project.controllers;
+package uni.java.project.videoshare.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,22 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
-import uni.java.project.beans.UserBean;
-import uni.java.project.entities.UserEntity;
-import uni.java.project.services.UserService;
-
 
 @RestController
+//@CrossOrigin(maxAge = 3600, allowedHeaders = "*", origins = "http://localhost:4200",
+//			 methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE} )
 @RequestMapping("/api/user")
 public class UserController {
 
@@ -35,7 +35,8 @@ public class UserController {
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<UserBean>> getAllUsers(@RequestParam(value ="page") int page,
-														@RequestParam(value ="itemCount") int itemCount){
+													  @RequestParam(value ="itemCount") int itemCount){
+		
 		List<UserEntity> users = userService.getAll(PageRequest.of(page, itemCount)).toList();
 		List<UserBean> userBeans = new ArrayList<>();
 		for(UserEntity user : users) {
