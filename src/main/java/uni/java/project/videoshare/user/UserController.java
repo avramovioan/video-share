@@ -101,15 +101,13 @@ public class UserController {
 	
 	@DeleteMapping
 	public ResponseEntity<?> delete(@RequestHeader(value = "Authorization") String authToken){
-		
 		UserEntity loggedUser = userService.getUserByToken(authToken);
 		if(!commentService.deleteAllByOwnerId(loggedUser.getId())) 
 			return new ResponseEntity<>("Something went wrong with comment deletions", HttpStatus.BAD_REQUEST);
 		if(!videoService.deleteAllByOwnerId(loggedUser.getId())) 
 			return new ResponseEntity<>("Something went wrong with video deletions", HttpStatus.BAD_REQUEST);
+		if(!userService.deleteUser(loggedUser))
+			return new ResponseEntity<>("Something went wrong with user deletion", HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
-	
-	
 }

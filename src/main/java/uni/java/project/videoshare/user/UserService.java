@@ -34,6 +34,16 @@ public class UserService{
 		return repo.findAll(pagable);
 	}
 	
+	public boolean deleteUser(UserEntity user) {
+		try {
+			repo.delete(user);
+			return true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
 	public UserEntity getUserByToken(String authorization) {
 		if (authorization == null || !authorization.toLowerCase().startsWith("basic")) return null;
 		
