@@ -7,12 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import uni.java.project.videoshare.user.UserEntity;
-
 @Service
 public class VideoService{
 
 	private VideoRepository repo;
+	
 	@Autowired
 	public VideoService(VideoRepository repo) {
 		this.repo = repo;
@@ -32,5 +31,27 @@ public class VideoService{
 	
 	public List<VideoEntity> getAllByUserId(int userId){
 		return repo.findByUserId(userId);
+	}
+	
+	public boolean deleteVideo(VideoEntity video) {
+		try {
+			repo.delete(video);
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
+	public boolean deleteAllByOwnerId(int ownerId) {
+		try {
+			repo.deleteByOwnerId(ownerId);
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
 	}
 }

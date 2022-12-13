@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
+import uni.java.project.videoshare.comment.CommentService;
+import uni.java.project.videoshare.video.VideoService;
+
 
 @RestController
 //@CrossOrigin(maxAge = 3600, allowedHeaders = "*", origins = "http://localhost:4200",
@@ -27,10 +30,16 @@ import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 public class UserController {
 
 	private UserService userService;
+	private VideoService videoService;
+	private CommentService commentService;
 	
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService,
+						  VideoService videoService,
+						  CommentService commentService) {
 		this.userService = userService;
+		this.videoService = videoService;
+		this.commentService = commentService;
 	}
 	
 	@GetMapping("/all")
@@ -92,11 +101,13 @@ public class UserController {
 	
 	@DeleteMapping
 	public ResponseEntity<?> delete(@RequestHeader(value = "Authorization") String authToken){
+		
 		UserEntity loggedUser = userService.getUserByToken(authToken);
-		if(loggedUser == null) return new ResponseEntity<Unauthorized>(HttpStatus.UNAUTHORIZED);
-		
+		if(!commentService.deleteAllByOwnerId(loggedUser.getId())) 
+			return new ResponseEntity<>("Something went wrong with comment deletions", HttpStatus.BAD_REQUEST);
+		if(!videoService.deleteAllByOwnerId(loggedUser.getId())) 
+			return new ResponseEntity<>("Something went wrong with video deletions", HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(HttpStatus.OK);
-		
 	}
 	
 	

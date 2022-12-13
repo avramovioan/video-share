@@ -38,9 +38,11 @@ public class CommentEntity implements Serializable{
 	
 	public CommentEntity() {}
 	
-	public CommentEntity(String content)
+	public CommentEntity(String content,VideoEntity video, UserEntity owner)
 	{
 		this.content = content;
+		this.owner = owner;
+		this.video = video;
 	}
 
 	public int getId() {
