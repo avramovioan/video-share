@@ -30,6 +30,14 @@ public class UserService{
 		return repo.findUserByEmailAndPassword(email, password);
 	}
 	
+	public UserEntity getByEmail(String email) {
+		return repo.findUserByEmail(email);
+	}
+	
+	public UserEntity getByUsername(String username) {
+		return repo.findUserByUsername(username);
+	}
+	
 	public Page<UserEntity> getAll(Pageable pagable){
 		return repo.findAll(pagable);
 	}

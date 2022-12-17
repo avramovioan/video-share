@@ -82,7 +82,8 @@ public class CommentController {
 		if(commentToUpdate == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		if(commentToUpdate.getOwner().getId() != loggedUser.getId()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		
-		if(commentUpdate.getContent().isBlank()) return new ResponseEntity<>(new CommentBean(commentToUpdate), HttpStatus.OK);
+		if(commentUpdate != null && !commentUpdate.getContent().isBlank()) 
+			return new ResponseEntity<>(new CommentBean(commentToUpdate), HttpStatus.OK);
 		
 		commentToUpdate.setContent(commentUpdate.getContent());
 		commentToUpdate = commentService.saveComment(commentToUpdate);

@@ -30,7 +30,7 @@ public class VideoService{
 	}
 	
 	public List<VideoEntity> getAllByUserId(int userId){
-		return repo.findByUserId(userId);
+		return repo.findByOwnerId(userId);
 	}
 	
 	public boolean deleteVideo(VideoEntity video) {

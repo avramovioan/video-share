@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VideoRepository extends JpaRepository<VideoEntity, Integer> {
 	
-	public List<VideoEntity> findByUserId(int userId);
+	public List<VideoEntity> findByOwnerId(int ownerId);
 	public long deleteByOwnerId(int ownerId);
 	
 }
