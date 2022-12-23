@@ -96,8 +96,8 @@ public class CommentController {
 		
 		UserEntity loggedUser = userService.getUserByToken(authToken);
 		CommentEntity comment = commentService.getById(commentId);
-		if(comment.getOwner().getId() != loggedUser.getId()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		if(comment.getVideo().getOwner().getId() != loggedUser.getId()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		if(comment.getOwner().getId() != loggedUser.getId() && 
+		   comment.getVideo().getOwner().getId() != loggedUser.getId()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		
 		if(!commentService.deleteComment(comment)) return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
 		

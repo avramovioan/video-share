@@ -72,7 +72,7 @@ public class UserController {
 	public ResponseEntity<?> login(@RequestParam(value = "email") String email,
 								   @RequestParam(value = "password") String password){
 		
-		if(email.isBlank() || password.isBlank()) return new ResponseEntity<Error>(HttpStatus.BAD_REQUEST);
+		if(email.isBlank() || password.isBlank()) return new ResponseEntity<>("Please provide both credentials",HttpStatus.BAD_REQUEST);
 		
 		UserEntity loggedUser = userService.getByEmailAndPassword(email, password);
 		
@@ -85,19 +85,23 @@ public class UserController {
 	public ResponseEntity<?> update(@RequestParam(value = "email", required = false) String email,
 									  @RequestParam(value = "username" , required = false) String username,
 									  @RequestParam(value = "password", required = false) String password,
-									  @RequestHeader(value = "Authorization" ) String authToken ){
+									  @RequestHeader(name = "authorization" ) String authToken ){
 		
 		UserEntity loggedUser = userService.getUserByToken(authToken);
 		if(loggedUser == null) return new ResponseEntity<Unauthorized>(HttpStatus.UNAUTHORIZED);
 		
 		if(email != null && !email.isBlank()) {
-			if(userService.getByEmail(email) != null) 
-				return new ResponseEntity<>("Email is already used.", HttpStatus.BAD_REQUEST);
-			loggedUser.setEmail(email);
+			if(!loggedUser.getEmail().equals(email)) {
+				if(userService.getByEmail(email) != null) 
+					return new ResponseEntity<>("Email is already used.", HttpStatus.BAD_REQUEST);
+				loggedUser.setEmail(email);				
+			}
 		}
 		if(username != null && !username.isBlank()) {
-			if(userService.getByUsername(username) != null) 
-				return new ResponseEntity<>("Username is already used.", HttpStatus.BAD_REQUEST);
+			if(!loggedUser.getUsername().equals(username)) {
+				if(userService.getByUsername(username) != null) 
+					return new ResponseEntity<>("Username is already used.", HttpStatus.BAD_REQUEST);	
+			}
 			loggedUser.setUsername(username);
 		}
 		if(password != null && !password.isBlank()) loggedUser.setPassword(password);

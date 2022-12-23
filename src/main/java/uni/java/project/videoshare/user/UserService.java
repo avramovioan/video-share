@@ -53,6 +53,7 @@ public class UserService{
 	}
 	
 	public UserEntity getUserByToken(String authorization) {
+		System.out.println(authorization);
 		if (authorization == null || !authorization.toLowerCase().startsWith("basic")) return null;
 		
 	    // Authorization: Basic base64credentials
@@ -61,8 +62,8 @@ public class UserService{
 	    String credentials = new String(credDecoded);
 	    // credentials = email:password
 	    String[] values = credentials.split(":", 2);
-		String email = values[0];
-		String password = values[1];
+		String email = values[0].replace("\"", "");
+		String password = values[1].replace("\"", "");;
 		return getByEmailAndPassword(email, password);
 	}
 }

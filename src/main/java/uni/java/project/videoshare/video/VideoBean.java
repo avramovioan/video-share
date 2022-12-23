@@ -10,6 +10,7 @@ public class VideoBean implements Serializable{
 	private String title;
 	private String url;
 	private String description;
+	private int ownerId;
 	
 	public VideoBean() {}
 	
@@ -18,6 +19,7 @@ public class VideoBean implements Serializable{
 		this.title = video.getTitle();
 		this.url = video.getUrl();
 		this.description = video.getDescription();
+		this.ownerId = video.getOwner().getId();
 	}
 
 	public int getId() {
@@ -50,6 +52,14 @@ public class VideoBean implements Serializable{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
 	}
 	
 	

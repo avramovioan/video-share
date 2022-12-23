@@ -53,11 +53,34 @@ public class VideoController {
 		return new ResponseEntity<List<VideoBean>>(videoBeans, HttpStatus.OK);
 	}
 	
-	@PostMapping()
+	@GetMapping("{videoId}")
+	public ResponseEntity<VideoBean> getVideoById(@PathVariable(value="videoId") int videoId){
+		
+		VideoEntity video = videoService.getById(videoId);
+		if(video == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<VideoBean>(new VideoBean(video), HttpStatus.OK);		
+	}
+	
+	@GetMapping("/myVideos")
+	public ResponseEntity<List<VideoBean>> getAllUserVideos(@RequestHeader(name = "Authorization") String authToken){
+		
+		UserEntity loggedUser = userService.getUserByToken(authToken);
+		if(loggedUser == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		
+		List<VideoEntity> videos = videoService.getAllByUserId(loggedUser.getId());
+		List<VideoBean> videoBeans = new ArrayList<>();
+		for(VideoEntity video : videos) {
+			videoBeans.add(new VideoBean(video));
+		}
+		return new ResponseEntity<List<VideoBean>>(videoBeans, HttpStatus.OK);
+	}
+	
+	@PostMapping()	
 	public ResponseEntity<VideoBean> createVideo(@RequestBody(required = true) VideoCreateBean videoCreate,
 												 @RequestHeader(value="Authorization") String authToken){
 		
 		UserEntity loggedUser = userService.getUserByToken(authToken);
+		if(loggedUser == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		VideoEntity videoToCreate = new VideoEntity(videoCreate.getTitle(),
 													videoCreate.getUrl(), 
 													videoCreate.getDescription(),
