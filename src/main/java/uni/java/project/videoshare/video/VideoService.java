@@ -29,6 +29,10 @@ public class VideoService{
 		return repo.findAll(pagable);
 	}
 	
+	public List<VideoEntity> getAllVideosByOwnerUsernameOrTitle(String username, String title){
+		return repo.findByOwnerUsernameContainingAndTitleContaining(username, title);
+	}
+	
 	public List<VideoEntity> getAllByUserId(int userId){
 		return repo.findByOwnerId(userId);
 	}

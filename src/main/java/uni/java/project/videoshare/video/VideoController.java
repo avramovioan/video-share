@@ -54,11 +54,11 @@ public class VideoController {
 	}
 	
 	@GetMapping("{videoId}")
-	public ResponseEntity<VideoBean> getVideoById(@PathVariable(value="videoId") int videoId){
+	public ResponseEntity<VideoFullBean> getVideoById(@PathVariable(value="videoId") int videoId){
 		
 		VideoEntity video = videoService.getById(videoId);
 		if(video == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<VideoBean>(new VideoBean(video), HttpStatus.OK);		
+		return new ResponseEntity<VideoFullBean>(new VideoFullBean(video), HttpStatus.OK);		
 	}
 	
 	@GetMapping("/myVideos")
@@ -68,6 +68,20 @@ public class VideoController {
 		if(loggedUser == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		
 		List<VideoEntity> videos = videoService.getAllByUserId(loggedUser.getId());
+		List<VideoBean> videoBeans = new ArrayList<>();
+		for(VideoEntity video : videos) {
+			videoBeans.add(new VideoBean(video));
+		}
+		return new ResponseEntity<List<VideoBean>>(videoBeans, HttpStatus.OK);
+	}
+	
+	@GetMapping("/search")
+	public ResponseEntity<List<VideoBean>> getAllVideosByFilter(@RequestParam(value = "username", required = false) String username,
+																@RequestParam(value = "title", required = false) String title){
+		
+		if(title != null && title.isBlank()) title = "";
+		if(username != null && username.isBlank()) username = "";
+		List<VideoEntity> videos = videoService.getAllVideosByOwnerUsernameOrTitle(username, title);
 		List<VideoBean> videoBeans = new ArrayList<>();
 		for(VideoEntity video : videos) {
 			videoBeans.add(new VideoBean(video));
